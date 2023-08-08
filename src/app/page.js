@@ -6,7 +6,7 @@ import style from "@/app/page.module.css";
 export default function Home() {
   const session = useSession();
   const router = useRouter();
-  if (session.status === "unauthenticated") {
+  if (session.status === "loading" || session.status === "unauthenticated") {
     router.push("/login");
   }
   return (
