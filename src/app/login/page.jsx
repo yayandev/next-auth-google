@@ -6,23 +6,28 @@ import style from "../page.module.css";
 const Login = () => {
   const router = useRouter();
   const session = useSession();
-  if (session.status === "authenticated") {
-    return router.push("/");
+  if (session.status === "loading") {
+    return <h1>Loading...</h1>;
   }
-
-  return (
-    <div className={style.container}>
-      <div className={style.card}>
-        <h1 className={style.title}>Welcome Back!</h1>
-        <button
-          onClick={() => signIn("google")}
-          className={style.button_google}
-        >
-          Login with google
-        </button>
+  if (session.status === "authenticated") {
+    router.push("/");
+    return <h1>authenticated</h1>;
+  }
+  if (session.status === "unauthenticated") {
+    return (
+      <div className={style.container}>
+        <div className={style.card}>
+          <h1 className={style.title}>Welcome Back!</h1>
+          <button
+            onClick={() => signIn("google")}
+            className={style.button_google}
+          >
+            Login with google
+          </button>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default Login;
